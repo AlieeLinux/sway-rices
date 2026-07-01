@@ -1,0 +1,237 @@
+include ~/.cache/wal/colors-sway
+
+# Default config for sway
+# Home row direction keys, like vim
+set $left h
+set $down j
+set $up k
+set $right l
+
+# Screen Shortcut
+set $on swaymsg "output * dpms on" &
+set $off swaymsg "output * dpms off" &
+
+# default mod/win key
+set $mod Mod4
+
+# playerctl
+set $minfo playerctl metadata
+set $QT_QPA_PLATFORMTHEME qt5ct
+set $next playerctl next
+set $plps playerctl play-pause
+set $previous playerctl previous
+set $metadata $minfo title && $minfo artist
+set $data2 $minfo album &&  $minfo albumArtist
+set $previous playerctl previous
+set $replay playerctl stop && playerctl play
+
+# Power
+# set $Power exec ~/.config/waybar/login.sh 
+set $Power exec wlogout
+
+# emoji rofi
+set $emoji rofi -show emoji &
+
+# Notification pop open
+set $Notifi exec swaync-client -t -sw &
+
+# Your preferred terminal emulator
+set $term foot
+
+# Your preferred application launcher
+# Note: pass the final command to swaymsg so that the resulting window can be opened
+# on the original workspace that the command was run on.
+set $menu rofi -show drun -icon-theme candy-icons
+set $alttab rofi -show window -show-icons
+
+# You can get the names of your outputs by running: swaymsg -t get_outputs
+
+### Theming and looks
+
+# Window border
+default_border pixel 2
+
+
+
+client.focused $color1 $color2 $color3 $color4 $color5
+
+
+# Basics:
+    # volume up/down (pulsemixer) and other toggles
+    bindsym $mod+Home exec $volup
+    bindsym $mod+End exec $voldown
+    bindsym $mod+Insert exec brightnessctl s +1%
+    bindsym $mod+Delete exec brightnessctl s 1%-
+#
+#    bindsym $mod+Shift+w exec rfkill toggle 1 && notify-send "Wifi toggle"
+#    bindsym $mod+Shift+b exec rfkill toggle 0 && notify-send "bluetooth toggle"
+
+    # music player keybinds
+    bindsym $mod+c exec $plps
+    bindsym $mod+b exec $next
+    bindsym $mod+z exec $previous
+    bindsym $mod+m exec notify-send "$($metadata)" && notify-send " $($data2)"
+    bindsym $mod+x exec $replay
+
+    # brightness(ctl)
+    bindsym $mod+Equal exec brightnessctl s +1%
+    bindsym $mod+Minus exec brightnessctl s 1%-
+
+    # suspend
+    bindsym $mod+Shift+s exec systemctl suspend
+
+    # Start a terminal
+    bindsym $mod+Return exec $term
+
+    # Kill focused window
+    bindsym $mod+q kill
+
+    # Start your launcher
+    bindsym $mod+Ctrl+Return exec $menu
+    bindsym $mod+Ctrl+E exec $emoji
+    bindsym $mod+Tab exec $alttab
+
+    # File manager
+    bindsym $mod+Ctrl+f exec thunar
+
+    # Starscreenshot
+    bindsym $mod+Print exec ~/.config/sway/screenshot2.sh
+    # keyboard
+     
+
+    # Drag floating windows by holding down $mod and left mouse button.
+    # Resize them with right mouse button + $mod.
+    # Despite the name, also works for non-floating windows.
+    # Change normal to inverse to use left mouse button for resizing and right
+    # mouse button for dragging.
+    floating_modifier $mod normal
+
+    # Reload the configuration file
+    bindsym $mod+Shift+r reload
+
+    # notification panel
+    bindsym $mod+Ctrl+p $Notifi
+
+    # uncomment to enable the default Exit sway (logs you out of your Wayland session)
+#    bindsym $mod+Ctrl+q exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+
+
+    # Power Menu
+    bindsym $mod+Escape $Power
+
+# Moving around:
+    # Move your focus around
+    bindsym $mod+$left focus left
+    bindsym $mod+$down focus down
+    bindsym $mod+$up focus up
+    bindsym $mod+$right focus right
+
+    # Or use $mod+[up|down|left|right]
+    bindsym $mod+Left focus left
+    bindsym $mod+Down focus down
+    bindsym $mod+Up focus up
+    bindsym $mod+Right focus right
+ #Move the focused window with the same, but add Shift
+    bindsym $mod+Shift+$left move left
+    bindsym $mod+Shift+$down move down
+    bindsym $mod+Shift+$up move up
+    bindsym $mod+Shift+$right move right
+    # Ditto, with arrow keys
+    bindsym $mod+Shift+Left move left
+    bindsym $mod+Shift+Down move down
+    bindsym $mod+Shift+Up move up
+    bindsym $mod+Shift+Right move right
+ #wallpaper
+    bindsym $mod+Ctrl+w exec ~/.config/sway/wallpaper.sh
+#
+# Woirkspaces:
+#
+    # Switch to workspace
+    bindsym $mod+1 workspace number 1
+    bindsym $mod+2 workspace number 2
+    bindsym $mod+3 workspace number 3
+    bindsym $mod+4 workspace number 4
+    bindsym $mod+5 workspace number 5
+    bindsym $mod+6 workspace number 6
+    bindsym $mod+7 workspace number 7
+    bindsym $mod+8 workspace number 8
+    bindsym $mod+9 workspace number 9
+    bindsym $mod+0 workspace number 10
+    # Move focused container to workspace
+    bindsym $mod+Shift+1 move container to workspace number 1
+    bindsym $mod+Shift+2 move container to workspace number 2
+    bindsym $mod+Shift+3 move container to workspace number 3
+    bindsym $mod+Shift+4 move container to workspace number 4
+    bindsym $mod+Shift+5 move container to workspace number 5
+    bindsym $mod+Shift+6 move container to workspace number 6
+    bindsym $mod+Shift+7 move container to workspace number 7
+    bindsym $mod+Shift+8 move container to workspace number 8
+    bindsym $mod+Shift+9 move container to workspace number 9
+    bindsym $mod+Shift+0 move container to workspace number 10
+    # Note: workspaces can have any name you want, not just numbers.
+    # We just use 1-10 as the default.
+#
+# Layout stuff:
+#
+
+    # Switch the current container between different layout styles
+    bindsym $mod+s layout stacking
+    bindsym $mod+w layout tabbed
+
+    # Random wallpaper supposedly
+    # bindsym $mod+Shift+w exec ~/.config/sway/wallpaper.sh any
+
+    bindsym $mod+e layout toggle split
+
+    # Make the current focus fullscreen
+    bindsym $mod+f fullscreen
+
+    # Toggle the current focus between tiling and floating mode
+    bindsym $mod+t floating toggle
+
+    # Swap focus between the tiling area and the floating area
+    bindsym $mod+space focus mode_toggle
+
+    # Move focus to the parent container
+    bindsym $mod+a focus parent
+#
+# Scratchpad:
+#
+    # Sway has a "scratchpad", which is a bag of holding for windows.
+    # You can send windows there and get them back later.
+
+    # Move the currently focused window to the scratchpad
+    bindsym $mod+Control+S move scratchpad
+
+    # Show the next scratchpad window or hide the focused scratchpad window.
+    # If there are multiple scratchpad windows, this command cycles through them.
+    bindsym $mod+Control+D scratchpad show
+#
+# Resizing containers:
+#
+#mode "resize" {
+
+# left will shrink the containers width
+    # right will grow the containers width
+    # up will shrink the containers height
+    # down will grow the containers height
+#    bindsym $left resize shrink width 10px
+#    bindsym $down resize grow height 10px
+#    bindsym $up resize shrink height 10px
+#    bindsym $right resize grow width 10px
+
+    # Ditto, with arrow keys
+bindsym $mod+Ctrl+Left resize shrink width 10px
+bindsym $mod+Ctrl+Down resize grow height 10px
+bindsym $mod+Ctrl+Up resize shrink height 10px
+bindsym $mod+Ctrl+Right resize grow width 10px
+
+    # Return to default mode
+#bindsym Return mode "default"
+#bindsym Escape mode "default"
+
+# bindsym $mod+r mode "resize"
+
+# screen on/off
+# bindsym $mod+ctrl+F2 exec $off
+# bindsym $mod+ctrl+F3 exec $on

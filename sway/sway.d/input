@@ -1,0 +1,8 @@
+input "2:7:SynPS/2_Synaptics_TouchPad" {
+    tap enabled                      # Enable tapping
+    drag_lock disabled
+    natural_scroll enabled           # Enable natural scrollin
+    scroll_method two_finger         # Use two-finger scrolling
+    scroll_factor 0.6                  # Adjust scroll sensitivity (change the value as needed)
+    pointer_accel 1                # Adjust pointer acceleration (change the value as needed)
+}

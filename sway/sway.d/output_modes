@@ -1,0 +1,6 @@
+# Output settings
+output "*" max_render_time off
+output "*" allow_tearing yes
+
+# set linear mode
+output LVDS-1 scale_filter linear

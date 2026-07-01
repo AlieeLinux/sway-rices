@@ -1,0 +1,13 @@
+[2024-08-04 11:53:07.951] [info] Using configuration file /home/ali/.config/waybar/config.jsonc
+[2024-08-04 11:53:07.953] [info] Unable to receive desktop appearance: GDBus.Error:org.freedesktop.DBus.Error.ServiceUnknown: The name is not activatable
+[2024-08-04 11:53:07.953] [info] Using CSS file /home/ali/.config/waybar/style.css
+[2024-08-04 11:53:07.962] [warning] Mapping is not an object
+[2024-08-04 11:53:08.160] [warning] Requested height: 30 is less than the minimum height: 33 required by the modules
+[2024-08-04 11:53:08.160] [info] Bar configured (width: 1260, height: 33) for output: LVDS-1
+
+** (waybar:38977): WARNING **: 11:53:08.174: Status Notifier Item with bus name ':1.38' and object path '/org/ayatana/NotificationItem/osdlyrics' is already registered
+
+(waybar:38977): Gtk-CRITICAL **: 11:53:08.240: gtk_widget_set_accel_path: assertion 'GTK_IS_ACCEL_GROUP (accel_group)' failed
+
+(waybar:38977): Gtk-CRITICAL **: 11:53:08.240: gtk_widget_add_accelerator: assertion 'GTK_IS_ACCEL_GROUP (accel_group)' failed
+Gdk-Message: 11:56:20.622: Error reading events from display: Broken pipe
