@@ -4,3 +4,6 @@
 
 ![Kogsa](https://media1.tenor.com/m/Dbr_tbE_KoIAAAAC/kogasa-touhou.gif)
 
+> I'll update later lmao
+
+![kogasaa](https://media.tenor.com/OPhQDzpEWeoAAAAi/kogasa-tatara-kogasa.gif)
