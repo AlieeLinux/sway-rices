@@ -2,7 +2,8 @@
 
 zsh_config="$HOME/.zshrc"
 current_config=("$HOME"/.config/{fastfetch,sway,foot,swaync,rofi})
-backup_config=(./backups/{fastfetch,sway,foot,swaync,rofi})
+backup_config="./backups"
+
 packages=(
     # Core Compositor & Themes
     sway
@@ -12,112 +13,116 @@ packages=(
     vim
     neo-candy-icons-git
     
-    # Wayland Essentials (Missing from your list)
-    swaybg          # Sets your wallpaper in Sway
-    swaylock        # Screen locker
-    swayidle        # Handles idle timeouts (sleep, lock)
+    # Wayland Essentials
+    swaybg
+    swaylock
+    swayidle
     swaync
     
     # System Controls & Utilities
-    brightnessctl   # Screen brightness control (great for Waybar/bindsym)
-    pamixer         # PulseAudio/PipeWire volume control CLI
-    grim            # Screenshot utility (capture screen)
-    slurp           # Region selector for screenshots
-    wl-clipboard    # Clipboard support (copy/paste in Wayland)
+    brightnessctl
+    pamixer
+    grim
+    slurp
+    wl-clipboard
     
     # Fonts & Aesthetics
-    ttf-nerd-fonts-symbols  # Needed for icons in fastfetch, Waybar, exa
-    otf-font-awesome        # Popular icon font for Waybar modules
+    ttf-nerd-fonts-symbols
+    otf-font-awesome
 )
 
-if [ ! -f "/bin/figlet" ]; then
-    sudo pacman -Sy figlet
+# Ensure figlet is present
+if ! command -v figlet &> /dev/null; then
+    sudo pacman -Sy --needed figlet
 fi
 
-function grab_config() {
-    echo "grabbing config files"
-    cp -rvf "${current_config[@]}" "$zsh_config" ./test
+grab_config() {
+    echo "Grabbing current config files..."
+    mkdir -p ./test
+    cp -rvf "${current_config[@]}" ./test/
 }
 
-function setup_zsh() {
-    sudo pacman -Syu 
-    echo "Installing zsh-theme=powerlevel"
-    yay -Syu zsh-theme-powerlevel10k
-    echo "follow the installation guide"
-    sourcce /usr/share/zsh-theme-powerlevel10k/prompt_powerlevel10k_setup
-    cp ./zshrc "$zsh_config"
-    echo "Done!"
+setup_zsh() {
+    sudo pacman -Syu --needed
+    echo "Installing zsh-theme-powerlevel10k via yay..."
+    yay -S --needed zsh-theme-powerlevel10k
+    echo "Follow the installation guide or source the theme:"
+    # shellcheck disable=SC1091
+    source "/usr/share/zsh-theme-powerlevel10k/prompt_powerlevel10k_setup.zsh" 2>/dev/null || true
+    if [ -f "./zshrc" ]; then
+        cp ./zshrc "$zsh_config"
+    fi
+    echo "Zsh setup done!"
 }
 
-function restore() {
-    echo "Restoring your old config"
-    cp -rvf "${backup_config[@]}" "$HOME/.config/"
+restore() {
+    echo "Restoring your old config from backups..."
+    cp -rvf "$backup_config"/* "$HOME/.config/"
 }
 
-function config_install() {
-    echo "Installing the config files..."
+config_install() {
+    echo "Installing the config files to $HOME/.config/..."
     cp -rvf "${current_config[@]}" "$HOME/.config/"
 }
 
-function packages_install() {
-    echo "Installing the packages needed"
+packages_install() {
+    echo "Installing the packages needed..."
     yay -Syu "${packages[@]}" --needed
 }
 
-function copying() {
-        read -rp "Do you want to proceed? (y/n) " response
+copying() {
+    read -rp "Do you want to proceed with installation & backup? (y/n) " response
+    case "${response,,}" in
+        y|yes)
+            echo "Backing up current configs to $backup_config..."
+            mkdir -p "$backup_config"
+            cp -rvf "${current_config[@]}" "$backup_config/"
 
-        case "${response,,}" in
-            y|yes)
-                echo "Backing up the current configs..."
-                cp -rvf "${current_config[@]}" ./backups
-
-                config_install
-                ;;
-            n|no)
-                echo "cancelling, byebye!!"
-                ;;
-            *)
-                echo "Stupid user detected!!!"
-                ;;
-        esac
+            config_install
+            packages_install
+            ;;
+        n|no)
+            echo "Cancelling, byebye!!"
+            ;;
+        *)
+            echo "Invalid option selected!"
+            ;;
+    esac
 }
 
-function detections() {
-    # Warning if files exists
-    if [ -f "$HOME/.config/swaync/config.json" ]; then
-        printf "The file exist, your old configs are going to ./backups."
+detections() {
+    # Check if config directory/file exists before deciding to backup
+    if [ -d "$HOME/.config/sway" ]; then
+        printf "Existing configs detected. Old configs will be backed up.\n"
         copying
     else
-        echo "File not found!"
+        echo "No existing Sway config found. Proceeding with fresh install..."
+        config_install
+        packages_install
     fi
 }
 
 setup_yay() {
     figlet "Install yay?"
-        read -rp "Do you want to proceed? (y/n) " response
-
-        case "${response,,}" in
-            y|yes)
-                echo "Installing Yay"
-                sudo pacman -Sy git --needed
-                git clone https://aur.archlinux.org/yay.git /tmp/yay.git
-                cd "/tmp/yay.git" || exit
-                makepkg -Csi
-                ;;
-            n|no)
-                echo "cancelling, byebye!!"
-                ;;
-            *)
-                echo "Stupid user detected!!!"
-                ;;
-        esac
+    read -rp "Do you want to proceed? (y/n) " response
+    case "${response,,}" in
+        y|yes)
+            echo "Installing Yay..."
+            sudo pacman -S --needed git base-devel
+            git clone https://aur.archlinux.org/yay.git /tmp/yay.git
+            cd "/tmp/yay.git" || exit
+            makepkg -si
+            cd - || exit
+            ;;
+        n|no)
+            echo "Skipping yay installation."
+            ;;
+        *)
+            echo "Invalid choice!"
+            ;;
+    esac
 }
 
+# --- Main Execution Flow ---
 setup_yay
-
-packages_install
-
-
-# grab_config
-# detections
+detections
