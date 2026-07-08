@@ -1,0 +1,18 @@
+# autoruns
+exec_always  nm-applet
+exec_always ~/.config/sway/autorun.sh
+exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+exec swaync &
+exec ~/.config/sway/welcome.sh
+exec ~/.config/sway/countdown.sh
+exec_always --no-startup-id xhost +SI:localuser:root
+
+# Swaylock
+exec swayidle -w \
+          timeout 300 'swaylock -f -c 000000  --ignore-empty-password --daemonize --indicator-caps-lock --indicator --clock --timestr "󰥔 %Hh %Mm %Ss" --datestr "󰃭 %b-%d-%Y" --show-failed-attempts --indicator-idle-visible' \
+          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+          before-sleep 'swaylock -f ' 
+
+# enable screenshare support for non dm users
+exec XDG_CURRENT_DESKTOP=sway systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway

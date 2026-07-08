@@ -1,0 +1,35 @@
+# Includes
+
+include ~/.config/sway/sway.d/output_modes
+include ~/.config/sway/sway.d/autostart
+include ~/.config/sway/sway.d/input
+include ~/.config/sway/sway.d/bindings
+include ~/.config/sway/sway.d/bar
+
+#femboy color
+include ~/.cache/wal/colors-sway
+
+### pick individual screen via screenshares
+# swaymsg create_output
+
+# Makes showmethekey float
+for_window [app_id="one.alynx.showmethekey" title="Floating Window - Show Me The Key"] {
+	floating enable,
+	sticky enable
+}
+# This will float any window that has "assistant" anywhere
+for_window [title=".*Assistant*"] floating enable
+
+# Decors 
+
+gaps outer 7
+
+
+
+#theme cursor
+seat * {
+    xcursor_theme Koishi 60
+}
+#
+
+include @sysconfdir@/sway/config.d/*

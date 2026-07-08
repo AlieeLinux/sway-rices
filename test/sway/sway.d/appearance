@@ -1,0 +1,9 @@
+# Gaps are essential for inner peace
+gaps inner 8
+gaps outer 4
+default_border pixel 2
+
+client.focused #8aadf4 #8aadf4 #181926 #8aadf4
+client.unfocused #363a4f #363a4f #cad3f5 #363a4f
+
+font pango:JetBrainsMono Nerd Font 10

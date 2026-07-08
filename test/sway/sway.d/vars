@@ -1,0 +1,8 @@
+set $mod Mod4
+set $term foot
+set $menu rofi -show drun
+set $browser librewolf
+set $left h
+set $down j
+set $up k
+set $right l
