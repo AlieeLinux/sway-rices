@@ -28,6 +28,7 @@ packages=(
     
     # Fonts & Aesthetics
     ttf-nerd-fonts-symbols
+    zsh-theme-powerlevel10k
     otf-font-awesome
 )
 
