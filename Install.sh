@@ -1,7 +1,7 @@
 #!/bin/bash
 
 zsh_config="$HOME/.zshrc"
-current_config=("$HOME"/.config/{fastfetch,sway,foot,swaync,rofi})
+current_config=("$HOME"/.config/{fastfetch,sway,foot,swaync,waybar,rofi})
 backup_config="./backups"
 
 packages=(
@@ -12,6 +12,7 @@ packages=(
     waybar
     vim
     neo-candy-icons-git
+    waybar
     
     # Wayland Essentials
     swaybg
@@ -30,6 +31,10 @@ packages=(
     ttf-nerd-fonts-symbols
     zsh-theme-powerlevel10k
     otf-font-awesome
+
+    # Utiles
+    thunar
+    gnome-system-monitor
 )
 
 # Ensure figlet is present
@@ -63,7 +68,7 @@ restore() {
 
 config_install() {
     echo "Installing the config files to $HOME/.config/..."
-    cp -rvf "${current_config[@]}" "$HOME/.config/"
+    cp -rvf "./configs"/* "$HOME/.config/"
 }
 
 packages_install() {
