@@ -13,6 +13,7 @@ packages=(
     vim
     neo-candy-icons-git
     waybar
+    python-pywal16
     
     # Wayland Essentials
     swaybg
@@ -46,6 +47,16 @@ grab_config() {
     echo "Grabbing current config files..."
     mkdir -p ./test
     cp -rvf "${current_config[@]}" ./test/
+}
+
+temp_color() {
+    wal -i "./rainbow.png" -n
+}
+
+link_config() {
+    echo "Linking needed color schemes..."
+    ln "$HOME/wal/colors-waybar.css" "$HOME/.config/waybar/colors.css"
+    ln "$HOME/wal/colors-waybar.css" "$HOME/.config/swaync/colors.css"
 }
 
 setup_zsh() {
