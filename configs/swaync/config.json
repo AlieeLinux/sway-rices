@@ -29,7 +29,7 @@
   "transition-time": 300,
   "hide-on-clear": false,
   "hide-on-action": true,
-  "text-empty": "Kogasa-chan is still sleeping",
+  "text-empty": "Satori is waiting...",
   "script-fail-notify": true,
   "scripts": {
     "Cute": {
@@ -61,20 +61,20 @@
   "widget-config": {
     "inhibitors": {
       "text": "Inhibitors",
-      "button-text": "Clear All nii-sama!",
+      "button-text": "Cleared All nii-sama!",
       "clear-all-button": true
     },
     "title": {
-      "text": "Kogasa's Notifications",
+      "text": "Satori's Notification",
       "clear-all-button": true,
-      "button-text": "Clear All"
+      "button-text": "Erase Memories"
     },
     "dnd": {
-      "text": "Do Not Disturb or Kogasa-chan will get angry"
+      "text": "Do Not Disturb or Satori-chan will get angry"
     },
     "label": {
       "max-lines": 5,
-      "text": "Sizuha"
+      "text": "Komeiji"
     },
     "mpris": {
       "image-size": 80,
@@ -82,7 +82,7 @@
       "blacklist": []
     },
     "volume": {
-      "label": "Kogasa Voice",
+      "label": "Satori's Voice",
       "show-per-app": true,
       "animation-type": "slide_up",
       "show-per-app-label": true
