@@ -1,7 +1,7 @@
 #!/bin/bash
 
 zsh_config="$HOME/.zshrc"
-current_config=("$HOME"/.config/{fastfetch,sway,foot,swaync,waybar,rofi})
+current_config=("$HOME"/.config/{fastfetch,sway,foot,swaync,waybar,rofi,wlogout})
 backup_config="./backups"
 
 packages=(
@@ -27,6 +27,9 @@ packages=(
     grim
     slurp
     wl-clipboard
+    wlogout
+    cpupower
+    lm_sensors
     
     # Fonts & Aesthetics
     ttf-nerd-fonts-symbols
