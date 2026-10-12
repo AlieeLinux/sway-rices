@@ -20,6 +20,7 @@ packages=(
     swaylock
     swayidle
     swaync
+    swaylock-effects-git
     
     # System Controls & Utilities
     brightnessctl
